@@ -11,6 +11,7 @@ class VueParticipant
     const LIST_VIEW = 2;
     const ITEM_VIEW = 3;
     const HOME_VIEW = 0;
+    const PRINT_VIEW = 1;
 
     public function __construct(array $data)
     {
@@ -37,6 +38,10 @@ class VueParticipant
             }
             case self::HOME_VIEW : {
                 $content = $this->htmlAccueil();
+                break;
+            }
+            case self::PRINT_VIEW : {
+                $content = $this->htmlMenu();
                 break;
             }
         }
@@ -101,6 +106,15 @@ END;
 <p>Liste de nom: $l->titre<p>
 END;
         return $retour;
+
+    }
+
+    private function htmlMenu()
+    {
+        return <<<END
+<h1>Menu Affichage</h1>
+<p>Ceci est le menu affichage avec les liens </p>
+END;
 
     }
 }

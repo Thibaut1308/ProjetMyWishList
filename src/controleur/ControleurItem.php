@@ -40,4 +40,6 @@ class ControleurItem
         $rs->getBody()->write($vue->render(0, $htmlvars));
         return $rs;
     }
+
+
 }
