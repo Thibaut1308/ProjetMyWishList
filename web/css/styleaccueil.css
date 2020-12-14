@@ -1,0 +1,77 @@
+body {
+    background-color: lightcyan;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    background-color: white;
+}
+
+#menu>ul {
+    list-style: none;
+    display: flex;
+    overflow: hidden;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+#titre_principal {
+    flex: 1;
+    width:20%;
+}
+
+#titre_principal h1 {
+    font-family: Algerian;
+}
+
+#menu a {
+    color: black;
+    text-decoration: none;
+}
+
+#menu a:hover {
+    color: darkgray;
+}
+
+#menu {
+    width: 70%;
+    margin-right: 10px;
+    padding: 20px;
+}
+
+footer
+{
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-top: 1px solid #000000;
+    background-color: white;
+    width: 100%;
+}
+
+footer>section {
+    flex: 3;
+}
+
+footer>aside {
+    flex: 1;
+    max-height: 80px;
+}
+
+#sources ul {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    max-height: 80px;
+}
+
+#contenu {
+    margin-top: 110px;
+}

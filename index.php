@@ -19,6 +19,17 @@ $db->setAsGlobal();
 $db->bootEloquent();
 
 $app = new \Slim\App($c);
+
+
+$app->get('/',
+    function (Request $req, Response $res, $args): Response {
+        $controleuritem = new mywishlist\controleur\ControleurItem($this);
+        $res = $controleuritem->getAccueil($req, $res, $args);
+        return $res;
+    }
+)->setName('home');
+
+
 $app->get('/liste/{id}/item',
     function (Request $req, Response $response, $args): Response {
         $nom = $args['id'];
@@ -28,7 +39,7 @@ $app->get('/liste/{id}/item',
         }
         return $response;
     }
-);
+)->setName('affichagelisteitem');
 
 
 $app->get('/liste/{action}',
@@ -40,7 +51,7 @@ $app->get('/liste/{action}',
         }
         return $response;
     }
-);
+)->setName('listes');
 
 $app->get('/item/{id}',
     function (Request $req, Response $response, $args): Response {
@@ -48,6 +59,6 @@ $app->get('/item/{id}',
         $response = $controleuritem->getItem($req, $response, $args);
         return $response;
     }
-);
+)->setName('afficheritem');
 
 $app->run();

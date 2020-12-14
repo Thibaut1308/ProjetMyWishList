@@ -19,7 +19,25 @@ class ControleurItem
         $iditem = $args['id'];
         $item = Item::find($iditem);
         $vue = new VueParticipant([$item]);
-        $rs->getBody()->write($vue->render(3));
+        $htmlvars = [
+            'basepath' => $rq->getUri()->getBasePath(),
+            'home' => $this->c->router->pathFor('home', []),
+            'affichage' => $this->c->router->pathFor('afficheritem', ['id'=>$args['id']])
+        ];
+
+        $rs->getBody()->write($vue->render(3, $htmlvars));
+        return $rs;
+    }
+
+    function getAccueil(Request $rq, Response $rs, array $args): Response {
+        $vue = new VueParticipant([]);
+        $htmlvars = [
+            'basepath' => $rq->getUri()->getBasePath(),
+            'home' => $this->c->router->pathFor('home', []),
+            'affichage' => $this->c->router->pathFor('afficheritem', ['id'=>1])
+        ];
+
+        $rs->getBody()->write($vue->render(0, $htmlvars));
         return $rs;
     }
 }
