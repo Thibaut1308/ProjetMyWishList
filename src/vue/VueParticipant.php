@@ -5,7 +5,7 @@ use mywishlist\models\Item;
 
 class VueParticipant
 {
-    private $i;
+    private $data;
     private $selecteur;
     private $htmlvars;
     const LIST_VIEW = 2;
@@ -14,7 +14,7 @@ class VueParticipant
 
     public function __construct(array $data)
     {
-        $this->i = $data;
+        $this->data = $data;
     }
 
     public function render($s, $htmlvars) {
@@ -71,7 +71,7 @@ END ;
     }
 
     public function htmlUnItem() {
-        $it = $this->i[0];
+        $it = $this->data[0];
         $retour = "<p>Nom: $it->nom<br \>
                       Description: $it->descr</p>";
         return $retour;
@@ -90,6 +90,15 @@ END ;
 <h1>Application MyWishList</h1>
 <p>Voici l'application MyWishList, pour afficher une liste ou item cliquer sur "Affichage"
 sinon créez une liste en cliquant sur "Creation"</p>
+END;
+        return $retour;
+
+    }
+
+    private function htmlListItem() {
+        $l = $this->data[0];
+        $retour = <<<END
+<p>Liste de nom: $l->titre<p>
 END;
         return $retour;
 

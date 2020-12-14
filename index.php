@@ -30,19 +30,16 @@ $app->get('/',
 )->setName('home');
 
 
-$app->get('/liste/{id}/item',
+$app->get('/liste/{id}',
     function (Request $req, Response $response, $args): Response {
-        $nom = $args['id'];
-        if(is_numeric($nom))
-        {
-            $response->getBody()->write("<p>Affichage des items de la liste $nom.</p>");
-        }
+        $control = new mywishlist\controleur\ControleurListe($this);
+        $response = $control->getListe($req, $response, $args);
         return $response;
     }
-)->setName('affichagelisteitem');
+)->setName('affichageliste');
 
 
-$app->get('/liste/{action}',
+/**$app->get('/liste/{action}',
     function (Request $req, Response $response, $args): Response {
         $action = $args['action'];
         if($action == "afficherlistes")
@@ -51,7 +48,7 @@ $app->get('/liste/{action}',
         }
         return $response;
     }
-)->setName('listes');
+)->setName('listes');*/
 
 $app->get('/item/{id}',
     function (Request $req, Response $response, $args): Response {
