@@ -29,6 +29,13 @@ $app->get('/',
     }
 )->setName('home');
 
+$app->get( '/affichage',
+    function (Request $req, Response $res, $args): Response {
+        $controleur = new \mywishlist\controleur\ControleurMain($this);
+        $res = $controleur->getHomeAffichage($req, $res, $args);
+        return $res;
+    }
+)->setName('affichage');
 
 $app->get('/liste/{id}',
     function (Request $req, Response $response, $args): Response {

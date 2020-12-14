@@ -22,7 +22,7 @@ class ControleurItem
         $htmlvars = [
             'basepath' => $rq->getUri()->getBasePath(),
             'home' => $this->c->router->pathFor('home', []),
-            'affichage' => $this->c->router->pathFor('afficheritem', ['id'=>$args['id']])
+            'affichage' => $this->c->router->pathFor('affichage', [])
         ];
 
         $rs->getBody()->write($vue->render(3, $htmlvars));
@@ -34,7 +34,7 @@ class ControleurItem
         $htmlvars = [
             'basepath' => $rq->getUri()->getBasePath(),
             'home' => $this->c->router->pathFor('home', []),
-            'affichage' => $this->c->router->pathFor('afficheritem', ['id'=>1])
+            'affichage' => $this->c->router->pathFor('affichage', [])
         ];
 
         $rs->getBody()->write($vue->render(0, $htmlvars));
