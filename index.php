@@ -22,11 +22,11 @@ $app = new \Slim\App($c);
 
 
 $app->get('/',
-    function (Request $req, Response $res, $args): Response {
-        $controleuritem = new mywishlist\controleur\ControleurItem($this);
-        $res = $controleuritem->getAccueil($req, $res, $args);
-        return $res;
-    }
+  function (Request $req, Response $res, $args): Response {
+    $controleuritem = new mywishlist\controleur\ControleurItem($this);
+    $res = $controleuritem->getAccueil($req, $res, $args);
+    return $res;
+  }
 )->setName('home');
 
 $app->get( '/affichage',
@@ -37,6 +37,7 @@ $app->get( '/affichage',
     }
 )->setName('affichage');
 
+
 $app->get('/liste/{id}',
     function (Request $req, Response $response, $args): Response {
         $control = new mywishlist\controleur\ControleurListe($this);
@@ -44,6 +45,23 @@ $app->get('/liste/{id}',
         return $response;
     }
 )->setName('affichageliste');
+
+$app->get('/creation',
+    function(Request  $req, Response $response, $args): Response {
+        $control = new \mywishlist\controleur\ControleurListe($this);
+        $response = $control->formulaireListe($req, $response, $args);
+        return $response;
+    }
+)->setName('form');
+
+$app->post('/creation',
+    function(Request  $req, Response $response, $args): Response {
+        $control = new \mywishlist\controleur\ControleurListe($this);
+        $response = $control->nouvelleListe($req, $response, $args);
+        return $response;
+    }
+)->setName('new');
+
 
 
 /**$app->get('/liste/{action}',

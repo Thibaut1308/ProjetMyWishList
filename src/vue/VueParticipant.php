@@ -18,15 +18,69 @@ class VueParticipant
         $this->data = $data;
     }
 
+    public function htmlUnItem() {
+        $it = $this->data[0];
+        $retour = "<p>Nom: $it->nom<br \>
+                      Description: $it->descr</p>";
+        return $retour;
+    }
+
+    public function htmlFooter() {
+        $retour = file_get_contents(__DIR__.'/../../web/html/footer.html');
+        return $retour;
+    }
+
+    /**public function htmlListItem() {
+
+    }*/
+    public function htmlAccueil() {
+        $retour = <<<END
+<h1>Application MyWishList</h1>
+<p>Voici l'application MyWishList, pour afficher une liste ou item cliquer sur "Affichage"
+sinon créez une liste en cliquant sur "Creation"</p>
+END;
+        return $retour;
+
+    }
+
+    private function htmlListItem() {
+        $l = $this->data[0];
+        $retour = <<<END
+<h2>Liste n°$l->no</h2>
+<p>Nom: $l->titre<p>
+<p>Description: $l->description</p>
+<p>Expiration: $l->expiration</p>
+<p>Propriétaire: $l->user_id</p>
+<p>Items: </p>
+<ul>
+END;
+        $items = $l->items;
+        foreach($items as $var=>$val)
+        {
+            $retour .= '<li>'.$val->id.'  '.$val->liste_id.'  '.$val->nom.'  '.$val->nom.'  '.$val->desc.'  '.$val->img.'  '.$val->url.'  '.$val->tarif.' </li>';
+        }
+        $retour .= "</ul>";
+        return $retour;
+
+    }
+
+    private function htmlMenu()
+    {
+        return <<<END
+<h1>Menu Affichage</h1>
+<p>Ceci est le menu affichage avec les liens </p>
+END;
+
+    }
+
     public function render($s, $htmlvars) {
         $this->selecteur = $s;
         $this->htmlvars = $htmlvars;
-        //$accueil = $this->htmlAccueil();
         $footer = $this->htmlFooter();
         $csspath = $this->htmlvars['basepath'].'/web/css/styleaccueil.css';
         $lienaccueil = $this->htmlvars['home'];
         $lienaffichage = $this->htmlvars['affichage'];
-        //'ProjetMyWishList'.'/../../web/css/styleaccueil.css'
+        $liencreation = $this->htmlvars['creation'];
         switch ($this->selecteur) {
             case self::LIST_VIEW : {
                 $content = $this->htmlListItem();
@@ -62,7 +116,7 @@ class VueParticipant
         <nav id="menu">
             <ul>
                 <li class="boutonaccueil"><a href=$lienaccueil >Accueil</a></li>
-                <li class="boutoncreation"><a href="#">Créations</a> </li>
+                <li class="boutoncreation"><a href=$liencreation>Créations</a> </li>
                 <li class="boutonaff"><a href=$lienaffichage>Affichage</a></li>
             </ul>
         </nav>
@@ -75,46 +129,5 @@ END ;
         return $html;
     }
 
-    public function htmlUnItem() {
-        $it = $this->data[0];
-        $retour = "<p>Nom: $it->nom<br \>
-                      Description: $it->descr</p>";
-        return $retour;
-    }
 
-    public function htmlFooter() {
-        $retour = file_get_contents(__DIR__.'/../../web/html/footer.html');
-        return $retour;
-    }
-
-    /**public function htmlListItem() {
-
-    }*/
-    public function htmlAccueil() {
-        $retour = <<<END
-<h1>Application MyWishList</h1>
-<p>Voici l'application MyWishList, pour afficher une liste ou item cliquer sur "Affichage"
-sinon créez une liste en cliquant sur "Creation"</p>
-END;
-        return $retour;
-
-    }
-
-    private function htmlListItem() {
-        $l = $this->data[0];
-        $retour = <<<END
-<p>Liste de nom: $l->titre<p>
-END;
-        return $retour;
-
-    }
-
-    private function htmlMenu()
-    {
-        return <<<END
-<h1>Menu Affichage</h1>
-<p>Ceci est le menu affichage avec les liens </p>
-END;
-
-    }
 }
