@@ -46,6 +46,7 @@ $app->get('/liste/{id}',
     }
 )->setName('affichageliste');
 
+
 $app->get('/creation',
     function(Request  $req, Response $response, $args): Response {
         $control = new \mywishlist\controleur\ControleurListe($this);
@@ -62,18 +63,30 @@ $app->post('/creation',
     }
 )->setName('new');
 
-
-
-/**$app->get('/liste/{action}',
-    function (Request $req, Response $response, $args): Response {
-        $action = $args['action'];
-        if($action == "afficherlistes")
-        {
-            $response->getBody()->write("<p>Affichage de la liste des listes.</p>");
-        }
+$app->post('/modification',
+    function(Request $req, Response $response, $args): Response {
+        $control = new \mywishlist\controleur\ControleurListe($this);
+        $response = $control->modifierListe($req, $response, $args);
         return $response;
     }
-)->setName('listes');*/
+)->setName('modifliste');
+
+$app->post('/modification_item',
+    function (Request $req, Response $response, $args): Response {
+        $control = new \mywishlist\controleur\ControleurItem($this);
+        $response = $control->modifierItem($req, $response, $args);
+        return $response;
+    }
+)->setName('modifitem');
+
+$app->post('/valider',
+    function(Request $req, Response $response, $args): Response {
+        $control = new \mywishlist\controleur\ControleurListe($this);
+        $response = $control->validerListe($req, $response, $args);
+        return $response;
+    }
+)->setName('validerliste');
+
 
 $app->get('/item/{id}',
     function (Request $req, Response $response, $args): Response {

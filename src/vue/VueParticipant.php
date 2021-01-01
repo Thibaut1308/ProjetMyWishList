@@ -45,9 +45,13 @@ END;
 
     private function htmlListItem() {
         $l = $this->data[0];
+        if(is_null($l))
+        {
+            return "<h2>Liste Inexistante</h2>";
+        }
         $retour = <<<END
 <h2>Liste n°$l->no</h2>
-<p>Nom: $l->titre<p>
+<p>Nom: $l->titre</p>
 <p>Description: $l->description</p>
 <p>Expiration: $l->expiration</p>
 <p>Propriétaire: $l->user_id</p>
@@ -57,7 +61,7 @@ END;
         $items = $l->items;
         foreach($items as $var=>$val)
         {
-            $retour .= '<li>'.$val->id.'  '.$val->liste_id.'  '.$val->nom.'  '.$val->nom.'  '.$val->desc.'  '.$val->img.'  '.$val->url.'  '.$val->tarif.' </li>';
+            $retour .= '<li>'.$val->id.'  '.$val->nom.' </li>';
         }
         $retour .= "</ul>";
         return $retour;
@@ -117,12 +121,13 @@ END;
             <ul>
                 <li class="boutonaccueil"><a href=$lienaccueil >Accueil</a></li>
                 <li class="boutoncreation"><a href=$liencreation>Créations</a> </li>
+                <li class=""><a href="#">Connexion</a></li>
                 <li class="boutonaff"><a href=$lienaffichage>Affichage</a></li>
             </ul>
         </nav>
     </header>
 <div id="contenu">
- <p>$content</p>
+ $content
 </div>
 $footer
 END ;
