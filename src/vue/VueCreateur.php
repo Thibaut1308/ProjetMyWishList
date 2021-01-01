@@ -73,7 +73,7 @@ END;
         $items = $l->items;
         foreach($items as $var=>$val)
         {
-            $retour .= '<li>'.$val->id.' '.$val->nom.' </li>';
+            $retour .= '<li>'.$val->id.' '.$val->nom.' '.$val->desc.' '.$val->tarif.' </li>';
         }
         $retour .= "</ul>";
         $retour .= <<<END

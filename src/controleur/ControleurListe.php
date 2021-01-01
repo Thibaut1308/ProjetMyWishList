@@ -27,7 +27,7 @@ class ControleurListe
         $tokenliste = $args['id'];
         $liste = Liste::where('token','=', $tokenliste)->first();
         if(!is_null($liste)) {
-            $vue = new VueParticipant([$liste]);
+            $vue = new VueParticipant([$liste], $this->c);
             $this->htmlvars['basepath'] = $rq->getUri()->getBasePath();
             $rs->getBody()->write($vue->render(2, $this->htmlvars));
         } else {

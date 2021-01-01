@@ -25,7 +25,8 @@ class ControleurItem
     function getItem(Request $rq, Response $rs, array $args ):Response {
         $iditem = $args['id'];
         $item = Item::find($iditem);
-        $vue = new VueParticipant([$item]);
+        $liste  = Liste::find($item->liste_id);
+        $vue = new VueParticipant([$item, $liste], $this->c);
         $this->htmlvars['basepath'] = $rq->getUri()->getBasePath();
 
         $rs->getBody()->write($vue->render(3, $this->htmlvars));
@@ -33,7 +34,7 @@ class ControleurItem
     }
 
     function getAccueil(Request $rq, Response $rs, array $args): Response {
-        $vue = new VueParticipant([]);
+        $vue = new VueParticipant([], $this->c);
         $this->htmlvars['basepath'] = $rq->getUri()->getBasePath();
 
         $rs->getBody()->write($vue->render(0, $this->htmlvars));

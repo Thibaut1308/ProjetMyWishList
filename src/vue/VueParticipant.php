@@ -8,20 +8,37 @@ class VueParticipant
     private $data;
     private $selecteur;
     private $htmlvars;
+    private $container;
     const LIST_VIEW = 2;
     const ITEM_VIEW = 3;
     const HOME_VIEW = 0;
     const PRINT_VIEW = 1;
 
-    public function __construct(array $data)
+    public function __construct(array $data, $c)
     {
         $this->data = $data;
+        $this->container = $c;
     }
 
+    /**
+     * Méthode de génération de la vue d'un item avec réservation possible si la liste est validée.
+     * @return string
+     */
     public function htmlUnItem() {
         $it = $this->data[0];
-        $retour = "<p>Nom: $it->nom<br \>
-                      Description: $it->descr</p>";
+        $listeitem = $this->data[1];
+        if(is_null($listeitem->token))
+        {
+            $retour = "<h1>Affichage impossible</h1><br \>";
+            $retour .= "<p>La liste de l'item doit d'abord être validée</p>";
+        }else {
+            $retour = "<h1>Détail de l'item n°$it->id</h1><br \>";
+            $retour .= "<p>
+                      Nom: $it->nom<br \>
+                      Description: $it->descr<br \>
+                      Liste: $it->liste_id<br \>
+                      Tarif: $it->tarif</p>";
+        }
         return $retour;
     }
 
@@ -30,9 +47,10 @@ class VueParticipant
         return $retour;
     }
 
-    /**public function htmlListItem() {
-
-    }*/
+    /**
+     * Affiche l'accueil
+     * @return string
+     */
     public function htmlAccueil() {
         $retour = <<<END
 <h1>Application MyWishList</h1>
@@ -61,7 +79,8 @@ END;
         $items = $l->items;
         foreach($items as $var=>$val)
         {
-            $retour .= '<li>'.$val->id.'  '.$val->nom.' </li>';
+            $lienitem = $this->container->router->pathFor('afficheritem', ['id'=>$val->id]);
+            $retour .= '<li><a href="'.$lienitem.'">'.$val->id.'  '.$val->nom.' </a></li>';
         }
         $retour .= "</ul>";
         return $retour;
