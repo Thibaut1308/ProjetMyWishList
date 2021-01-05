@@ -76,11 +76,18 @@ END;
             $retour .= '<li>'.$val->id.' '.$val->nom.' '.$val->desc.' '.$val->tarif.' </li>';
         }
         $retour .= "</ul>";
+        if($l->public == 1) {
+            $public = "Liste publique";
+        }else
+        {
+            $public = "Liste privée";
+        }
         $retour .= <<<END
 <form method="POST" action="$action" id="formmodif">
     <input type="hidden" name="id" value="$l->no" />
 	<label>Nouveau nom:<br> <input type="text" name="nom"/></label><br>
 	<label>Nouvelle Description: <br><input type="text" name="description"/></label><br>
+	<label>Changer l'état de la liste: <input type="checkbox" name="public" value="1"> (Etat actuel: $public) </label><br>
 	<button type="submit">Enregistrer la liste</button>
 </form>	
 <form method="POST" action="$action2" id="formitem">
