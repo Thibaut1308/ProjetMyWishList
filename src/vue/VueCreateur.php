@@ -25,7 +25,7 @@ class VueCreateur
 <form method="POST" action="$action">
 	<label>Titre:<br> <input type="text" name="titre"/></label><br>
 	<label>Description: <br><input type="text" name="description"/></label><br>
-	<label>Date d'expiration: <br><input type="date" name="expiration"/></label><br>
+	<label>Date d'expiration: <br><input type="date" name="expiration" placeholder="YYYY-MM-JJ"/></label><br>
 	<button type="submit">Enregistrer la liste</button>
 </form>	
 END;
