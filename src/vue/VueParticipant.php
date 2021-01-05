@@ -89,10 +89,14 @@ END;
 
     private function htmlMenu()
     {
-        return <<<END
-<h1>Menu Affichage</h1>
-<p>Ceci est le menu affichage avec les liens </p>
+        $retour =  <<<END
+<h1>Listes publiques</h1>
 END;
+        foreach($this->data[0] as $var=>$val) {
+            $redirection = $this->container->router->pathFor('affichageliste', ['id'=>$val->token]);
+            $retour .= '<p>-<a href="'.$redirection.'">'. $val->titre.'</a></p>';
+        }
+        return $retour;
 
     }
 

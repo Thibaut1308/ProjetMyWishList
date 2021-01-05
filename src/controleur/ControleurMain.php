@@ -8,6 +8,7 @@ use Slim\Container;
 use mywishlist\vue\VueParticipant;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use mywishlist\models\Liste;
 
 class ControleurMain
 {
@@ -24,8 +25,11 @@ class ControleurMain
     }
 
     function getHomeAffichage(Request $rq, Response $rs, array $args): Response {
-        $vue = new VueParticipant([], $this->c);
-
+        $listes = Liste::where('public','=', 1)
+            ->where('token', '!=', 'NULL')
+            ->where('expiration', '>', date('Y-m-j'))
+            ->get();
+        $vue = new VueParticipant([$listes], $this->c);
         $this->htmlvars['basepath'] = $rq->getUri()->getBasePath();
         $rs->getBody()->write($vue->render(1, $this->htmlvars));
         return $rs;
