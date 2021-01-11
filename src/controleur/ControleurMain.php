@@ -28,6 +28,7 @@ class ControleurMain
         $listes = Liste::where('public','=', 1)
             ->where('token', '!=', 'NULL')
             ->where('expiration', '>', date('Y-m-j'))
+            ->orderBy('expiration')
             ->get();
         $vue = new VueParticipant([$listes], $this->c);
         $this->htmlvars['basepath'] = $rq->getUri()->getBasePath();
