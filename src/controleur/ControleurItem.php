@@ -49,6 +49,12 @@ class ControleurItem
         $description = filter_var($post['description'], FILTER_SANITIZE_STRING);
         $urlsite = filter_var($post['urlitem'], FILTER_SANITIZE_URL);
         $tarif = filter_var($post['tarifitem'], FILTER_SANITIZE_NUMBER_FLOAT);
+        if (filter_var($post['urlimgitem'], FILTER_VALIDATE_URL)) {
+            $urlimg=filter_var($post['urlimgitem'], FILTER_SANITIZE_URL);
+        }else {
+            $str=filter_var($post['urlimgitem'], FILTER_SANITIZE_STRING);
+            $urlimg=$this->htmlvars['basepath']."/ProjetMyWishList/web/img/$str";
+        }
         $item = Item::find($iditem);
         if(is_null($item)) { //Nouvel Item
             $item = new Item();
@@ -57,6 +63,7 @@ class ControleurItem
             $item->descr = $description;
             $item->url = $urlsite;
             $item->tarif = $tarif;
+            $item->img = $urlimg;
         }else
         {
             if($item->liste_id == $idliste)

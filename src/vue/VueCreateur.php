@@ -98,6 +98,7 @@ END;
     <label>Description:<br> <input type="text" name="description"/></label><br>
     <label>Url site:<br> <input type="text" name="urlitem"/></label><br>
     <label>Tarif:<br> <input type="number" name="tarifitem"/></label><br>
+    <label>Image:<br> <input type="text" name="urlimgitem"/></label><br> 
     <button type="submit">Enregistrer item</button>
 </form>
 $participant

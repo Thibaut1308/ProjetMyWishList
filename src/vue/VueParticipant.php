@@ -37,7 +37,8 @@ class VueParticipant
                       Nom: $it->nom<br \>
                       Description: $it->descr<br \>
                       Liste: $it->liste_id<br \>
-                      Tarif: $it->tarif</p>";
+                      Tarif: $it->tarif<br \>
+                      Image: <img src='$it->img' alt='$it->descr' witdh='200' height='200'> </p>";
         }
         return $retour;
     }
