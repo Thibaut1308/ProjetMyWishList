@@ -57,7 +57,7 @@ class ControleurListe
         $titre = filter_var($post['titre']       , FILTER_SANITIZE_STRING) ;
         $description = filter_var($post['description'] , FILTER_SANITIZE_STRING) ;
         $expiration = $post['expiration'];
-        if($titre != "" || $description != "") {
+        if($titre != "" && $description != "") {
             $tokenmodif = openssl_random_pseudo_bytes(32);
             $tokenmodif = bin2hex($tokenmodif);
             $l = new Liste();
