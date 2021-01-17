@@ -84,7 +84,7 @@ class ControleurItem
         $post = $rq->getParsedBody();
         $iditem = filter_var($post['id'], FILTER_SANITIZE_NUMBER_INT);
         $nom = filter_var($post['nom'], FILTER_SANITIZE_STRING);
-        setcookie('nom', serialize($nom), time()*3600);
+        setcookie('nom', $nom, time()+3600);
         $item = Item::find($iditem);
         $item->reservation = $nom;
         $item->save();

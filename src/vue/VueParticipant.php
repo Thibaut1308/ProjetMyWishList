@@ -41,7 +41,7 @@ class VueParticipant
                       Tarif: $it->tarif<br \>
                       Image: <img src='$it->img' alt='$it->descr' witdh='200' height='200'> </p>";
             if(isset($_COOKIE['nom'])) {
-                $valeur  = unserialize($_COOKIE['nom']);
+                $valeur  = $_COOKIE['nom'];
             }else
             {
                 $valeur = "";
