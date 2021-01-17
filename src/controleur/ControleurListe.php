@@ -77,7 +77,7 @@ class ControleurListe
         $description = filter_var($post['description'], FILTER_SANITIZE_STRING);
         $public = filter_var($post['public'], FILTER_SANITIZE_NUMBER_INT);
         $l = Liste::find($id);
-        if($public = 1) {
+        if($public == 1) {
             if($l->public == 1) {
                 $l->public = 0;
             }else {
