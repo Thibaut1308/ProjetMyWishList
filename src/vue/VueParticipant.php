@@ -27,6 +27,7 @@ class VueParticipant
     public function htmlUnItem() {
         $it = $this->data[0];
         $listeitem = $this->data[1];
+        $action = $this->container->router->pathFor('reserver');
         if(is_null($listeitem->token))
         {
             $retour = "<h1>Affichage impossible</h1><br \>";
@@ -39,6 +40,27 @@ class VueParticipant
                       Liste: $it->liste_id<br \>
                       Tarif: $it->tarif<br \>
                       Image: <img src='$it->img' alt='$it->descr' witdh='200' height='200'> </p>";
+            if(isset($_COOKIE['nom'])) {
+                $valeur  = unserialize($_COOKIE['nom']);
+            }else
+            {
+                $valeur = "";
+            }
+            if(is_null($it->reservation)) {
+
+                $retour .= "Réservez l'item ?";
+                $retour .= <<<END
+<form method="POST" action="$action" id="formreserver">
+    <input type="hidden" name="id" value="$it->id" />
+    <label>Entrez votre nom: <br> <input type="text" name="nom" placeholder="nom" value="$valeur"/></label><br>
+    <button type="submit">Réserver</button>
+</form>
+END;
+
+            }else
+            {
+                $retour .= "Item réservé par $it->reservation</p>";
+            }
         }
         return $retour;
     }

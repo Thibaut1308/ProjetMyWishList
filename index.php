@@ -96,4 +96,12 @@ $app->get('/item/{id}',
     }
 )->setName('afficheritem');
 
+$app->post('/reserver',
+    function(Request $req, Response $response, $args): Response {
+        $controleuritem = new \mywishlist\controleur\ControleurItem($this);
+        $response = $controleuritem->reserverItem($req, $response, $args);
+        return $response;
+    }
+)->setName('reserver');
+
 $app->run();
