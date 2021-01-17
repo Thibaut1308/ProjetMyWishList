@@ -85,13 +85,14 @@ END;
         $retour .= <<<END
 <form method="POST" action="$action" id="formmodif">
     <input type="hidden" name="id" value="$l->no" />
-	<label>Nouveau nom:<br> <input type="text" name="nom"/></label><br>
-	<label>Nouvelle Description: <br><input type="text" name="description"/></label><br>
+	<label>Nouveau nom:<br> <input type="text" name="nom" value="$l->titre"/></label><br>
+	<label>Nouvelle Description: <br><input type="text" name="description" value="$l->description"/></label><br>
 	<label>Changer l'état de la liste: <input type="checkbox" name="public" value="1"> (Etat actuel: $public) </label><br>
 	<button type="submit">Enregistrer la liste</button>
 </form>	
 <form method="POST" action="$action2" id="formitem">
     <h3>Ajouter/Modifier un item</h3>
+    <label>En cas de modification, entrez le numéro de l'item à modifier (l'item doit appartenir à votre liste)<br></label>
     <input type="hidden" name="id" value="$l->no" />
     <label>Identifiant item:<br> <input type="number" name="iditem"/></label><br>
     <label>Nom:<br> <input type="text" name="nomitem"/></label><br>
