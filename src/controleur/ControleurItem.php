@@ -84,9 +84,11 @@ class ControleurItem
         $post = $rq->getParsedBody();
         $iditem = filter_var($post['id'], FILTER_SANITIZE_NUMBER_INT);
         $nom = filter_var($post['nom'], FILTER_SANITIZE_STRING);
+        $message = filter_var($post['message'], FILTER_SANITIZE_STRING);
         setcookie('nom', $nom, time()+3600);
         $item = Item::find($iditem);
         $item->reservation = $nom;
+        $item->message = $message;
         $item->save();
         $urlredirection = $this->c->router->pathFor('afficheritem', ['id'=> $iditem]);
         return $response->withRedirect($urlredirection);

@@ -46,20 +46,29 @@ class VueParticipant
             {
                 $valeur = "";
             }
-            if(is_null($it->reservation)) {
+
+            if(isset($_POST['message'])) {
+                $valeur2  = $_POST['message'];
+            }else
+            {
+                $valeur2 = "";
+            }
+            if((is_null($it->reservation))||(is_null($it->message)))
+            {
 
                 $retour .= "Réservez l'item ?";
                 $retour .= <<<END
 <form method="POST" action="$action" id="formreserver">
     <input type="hidden" name="id" value="$it->id" />
     <label>Entrez votre nom: <br> <input type="text" name="nom" placeholder="nom" value="$valeur"/></label><br>
+    <label>Entrez votre message: <br> <input type="text" name="message" placeholder="message" value="$valeur2"/></label><br>
     <button type="submit">Réserver</button>
 </form>
 END;
 
             }else
             {
-                $retour .= "Item réservé par $it->reservation</p>";
+                $retour .= "Item réservé par $it->reservation  $it->message</p>";
             }
         }
         return $retour;
