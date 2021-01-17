@@ -46,7 +46,6 @@ class VueParticipant
             {
                 $valeur = "";
             }
-
             if(isset($_POST['message'])) {
                 $valeur2  = $_POST['message'];
             }else
@@ -68,7 +67,7 @@ END;
 
             }else
             {
-                $retour .= "Item réservé par $it->reservation  $it->message</p>";
+                $retour .= "Item réservé par $it->reservation $it->message</p>";
             }
         }
         return $retour;
@@ -111,8 +110,22 @@ END;
         $items = $l->items;
         foreach($items as $var=>$val)
         {
+            if(isset($_COOKIE['createur'.$l->no])) {
+                if(is_null($val->reservation)) {
+                    $reserver = "Non réservé";
+                }else{
+                    $reserver = "Réservé";
+                }
+            }else
+            {
+                if(is_null($val->reservation)) {
+                    $reserver = "Non réservé";
+                }else{
+                    $reserver = 'Réservé par '.$val->reservation.' Message: '.$val->message;
+                }
+            }
             $lienitem = $this->container->router->pathFor('afficheritem', ['id'=>$val->id]);
-            $retour .= '<li><a href="'.$lienitem.'">'.$val->id.'  '.$val->nom.' </a></li>';
+            $retour .= '<li><a href="'.$lienitem.'">'.$val->id.'  '.$val->nom.' </a> '.$reserver.' </li>';
         }
         $retour .= "</ul>";
         return $retour;
@@ -125,6 +138,7 @@ END;
 <h1>Listes publiques</h1>
 END;
         foreach($this->data[0] as $var=>$val) {
+
             $redirection = $this->container->router->pathFor('affichageliste', ['id'=>$val->token]);
             $retour .= '<p>-<a href="'.$redirection.'">'. $val->titre.'</a></p>';
         }
