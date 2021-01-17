@@ -40,7 +40,13 @@ class ControleurListe
     }
 
     public function formulaireListe(Request $rq, Response $response, $args):Response {
-        $vue = new VueCreateur([], $this->c);
+        if(!is_null($args['err'], $this->c)) {
+            $vue = new VueCreateur([$args['err']], $this->c);
+        }else
+        {
+            $vue = new VueCreateur([], $this->c);
+        }
+
         $this->htmlvars['basepath'] = $rq->getUri()->getBasePath();
         $response->getBody()->write($vue->render(1, $this->htmlvars));
         return $response;
@@ -48,18 +54,24 @@ class ControleurListe
 
     public function nouvelleListe(Request $rq, Response $response, $args):Response {
         $post = $rq->getParsedBody();
-        $titre       = filter_var($post['titre']       , FILTER_SANITIZE_STRING) ;
+        $titre = filter_var($post['titre']       , FILTER_SANITIZE_STRING) ;
         $description = filter_var($post['description'] , FILTER_SANITIZE_STRING) ;
         $expiration = $post['expiration'];
-        $tokenmodif = openssl_random_pseudo_bytes(32);
-        $tokenmodif = bin2hex($tokenmodif);
-        $l = new Liste();
-        $l->titre = $titre;
-        $l->description = $description;
-        $l->tokenmodif = $tokenmodif;
-        $l->expiration = $expiration;
-        $l->save();
-        $urlredirection = $this->c->router->pathFor('affichageliste', ['id'=>$tokenmodif]);
+        if($titre != "" || $description != "") {
+            $tokenmodif = openssl_random_pseudo_bytes(32);
+            $tokenmodif = bin2hex($tokenmodif);
+            $l = new Liste();
+            $l->titre = $titre;
+            $l->description = $description;
+            $l->tokenmodif = $tokenmodif;
+            $l->expiration = $expiration;
+            $l->save();
+            $urlredirection = $this->c->router->pathFor('affichageliste', ['id'=>$tokenmodif]);
+        }else
+        {
+            $urlredirection = $this->c->router->pathFor('formerr', ['err'=>'erreur']);
+        }
+
         return $response->withRedirect($urlredirection);
     }
 

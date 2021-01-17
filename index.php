@@ -55,6 +55,14 @@ $app->get('/creation',
     }
 )->setName('form');
 
+$app->get('/creation/{err}',
+    function(Request  $req, Response $response, $args): Response {
+        $control = new \mywishlist\controleur\ControleurListe($this);
+        $response = $control->formulaireListe($req, $response, $args);
+        return $response;
+    }
+)->setName('formerr');
+
 $app->post('/creation',
     function(Request  $req, Response $response, $args): Response {
         $control = new \mywishlist\controleur\ControleurListe($this);
@@ -62,6 +70,8 @@ $app->post('/creation',
         return $response;
     }
 )->setName('new');
+
+
 
 $app->post('/modification',
     function(Request $req, Response $response, $args): Response {

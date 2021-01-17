@@ -20,8 +20,15 @@ class VueCreateur
     }
 
     public function formListes() {
+        if(isset($this->data[0]))
+        {
+            $html = "<script>window.alert('La description et le titre doivent être complétés')</script>";
+        }else
+        {
+            $html = "";
+        }
         $action = $this->container->router->pathFor('new');
-        $html = <<<END
+        $html .= <<<END
 <form method="POST" action="$action">
 	<label>Titre:<br> <input type="text" name="titre"/></label><br>
 	<label>Description: <br><input type="text" name="description"/></label><br>
