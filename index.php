@@ -114,4 +114,12 @@ $app->post('/reserver',
     }
 )->setName('reserver');
 
+$app->post('/modifimage',
+    function(Request $req, Response $response, $args): Response {
+        $controleuritem = new \mywishlist\controleur\ControleurItem($this);
+        $response = $controleuritem->modifierImage($req, $response, $args);
+        return $response;
+    }
+)->setName('modifimage');
+
 $app->run();
