@@ -1,4 +1,4 @@
 # ProjetMyWishList
 
-Informations d'installation récapitulatif des tâches faites:
+Informations d'installation et récapitulatif des tâches faites:
 
