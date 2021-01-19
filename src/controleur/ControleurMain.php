@@ -20,7 +20,8 @@ class ControleurMain
         $this->htmlvars = [
             'home' => $this->c->router->pathFor('home', []),
             'affichage' => $this->c->router->pathFor('affichage', []),
-            'creation' => $this->c->router->pathFor('new', [])
+            'creation' => $this->c->router->pathFor('new', []),
+            'compte' => $this->c->router->pathFor('compte', [])
         ];
     }
 

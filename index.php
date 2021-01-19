@@ -11,6 +11,7 @@ $config = require_once 'src/conf/settings.php';
 
 $c = new Slim\Container($config);
 
+session_start();
 $db = new DB();
 $config= parse_ini_file("src/conf/conf.ini");
 $db->addConnection($config);
@@ -121,5 +122,38 @@ $app->post('/modifimage',
         return $response;
     }
 )->setName('modifimage');
+
+$app->get('/authentification',
+    function (Request $req, Response $response, $args): Response {
+        $controleurcompte = new \mywishlist\controleur\ControleurCompte($this);
+        $response = $controleurcompte->formulaireAuthentification($req, $response, $args);
+        return $response;
+    }
+)->setName('compte');
+
+$app->post('/formconnection',
+    function(Request $req, Response $response, $args): Response {
+        $controleurcompte = new \mywishlist\controleur\ControleurCompte($this);
+        $response = $controleurcompte->traiterConnection($req, $response, $args);
+        return $response;
+    }
+)->setName('connection');
+
+$app->post('/forminscription',
+    function (Request $req, Response $response, $args): Response {
+        $controleurcompte = new \mywishlist\controleur\ControleurCompte($this);
+        $response = $controleurcompte->traiterInscription($req, $response, $args);
+        return $response;
+    }
+)->setName('inscription');
+
+$app->post('/ajouterlistecompte',
+    function(Request $req, Response $response, $args): Response {
+        $controleurcompte = new \mywishlist\controleur\ControleurCompte($this);
+        $response = $controleurcompte->ajouterListeCompte($req, $response, $args);
+        return $response;
+    }
+
+)->setName('ajouterliste');
 
 $app->run();

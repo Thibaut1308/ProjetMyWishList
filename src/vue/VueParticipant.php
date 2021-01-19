@@ -85,8 +85,10 @@ END;
     public function htmlAccueil() {
         $retour = <<<END
 <h1>Application MyWishList</h1>
-<p>Voici l'application MyWishList, pour afficher une liste ou item cliquer sur "Affichage"
-sinon créez une liste en cliquant sur "Creation"</p>
+<p>Voici l'application MyWishList, pour afficher une liste publique cliquer sur "Affichage"
+sinon créez une liste en cliquant sur "Creation".</p>
+<p>Une fois la liste créée vous pouvez partager le lien "participants" pour que ces derniers puissent réserver des items.</p>
+<p>Connectez-vous en cliquant sur "Espace personnel" pour retrouver plus facilement vos listes.</p>
 END;
         return $retour;
 
@@ -154,6 +156,7 @@ END;
         $lienaccueil = $this->htmlvars['home'];
         $lienaffichage = $this->htmlvars['affichage'];
         $liencreation = $this->htmlvars['creation'];
+        $liencompte = $this->htmlvars['compte'];
         switch ($this->selecteur) {
             case self::LIST_VIEW : {
                 $content = $this->htmlListItem();
@@ -190,7 +193,7 @@ END;
             <ul>
                 <li class="boutonaccueil"><a href=$lienaccueil >Accueil</a></li>
                 <li class="boutoncreation"><a href=$liencreation>Créations</a> </li>
-                <li class=""><a href="#">Connexion</a></li>
+                <li class=""><a href=$liencompte>Espace personnel</a></li>
                 <li class="boutonaff"><a href=$lienaffichage>Affichage</a></li>
             </ul>
         </nav>

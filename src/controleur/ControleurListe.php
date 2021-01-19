@@ -19,7 +19,8 @@ class ControleurListe
         $this->htmlvars = [
             'home' => $this->c->router->pathFor('home', []),
             'affichage' => $this->c->router->pathFor('affichage', []),
-            'creation' => $this->c->router->pathFor('new', [])
+            'creation' => $this->c->router->pathFor('new', []),
+            'compte' => $this->c->router->pathFor('compte', [])
         ];
     }
 
@@ -65,6 +66,9 @@ class ControleurListe
             $l->description = $description;
             $l->tokenmodif = $tokenmodif;
             $l->expiration = $expiration;
+            if(isset($_SESSION['profile'])) {
+                $l->user_id = $_SESSION['profile']['id'];
+            }
             $l->save();
             $urlredirection = $this->c->router->pathFor('affichageliste', ['id'=>$tokenmodif]);
         }else

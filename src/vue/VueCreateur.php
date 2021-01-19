@@ -49,6 +49,16 @@ END;
         $action = $this->container->router->pathFor('modifliste');
         $action2 = $this->container->router->pathFor('modifitem');
         $action3 = $this->container->router->pathFor('modifimage');
+        if(!isset($_COOKIE['createur'])) {
+            if($l->expiration > date('Y-m-j')) {
+                setcookie('createur'.$l->no, serialize($l->no), time()+3600*24*30*12);
+            }
+        }else
+        {
+            if($l->expiration < date('Y-m-j')) {
+                unset($_COOKIE['createur'.$l->no]);
+            }
+        }
         if(!is_null($l->token))
         {
             $lienconsultation = $this->container->router->pathFor('affichageliste', ['id'=>$l->token]);
@@ -81,7 +91,21 @@ END;
         $items = $l->items;
         foreach($items as $var=>$val)
         {
-            $retour .= '<li>'.$val->id.' '.$val->nom.' '.$val->desc.' '.$val->tarif.' </li>';
+            if(isset($_COOKIE['createur'.$l->no])) {
+                if(is_null($val->reservation)) {
+                    $reserver = "Non réservé";
+                }else{
+                    $reserver = "Réservé";
+                }
+            }else
+            {
+                if(is_null($val->reservation)) {
+                    $reserver = "Non réservé";
+                }else{
+                    $reserver = 'Réservé par '.$val->reservation.' Message: '.$val->message;
+                }
+            }
+            $retour .= '<li>'.$val->id.' '.$val->nom.' '.$val->desc.' '.$val->tarif.'€ '.$reserver.'</li>';
         }
         $retour .= "</ul>";
         if($l->public == 1) {
@@ -98,6 +122,7 @@ END;
 	<label>Changer l'état de la liste: <input type="checkbox" name="public" value="1"> (Etat actuel: $public) </label><br>
 	<button type="submit">Enregistrer la liste</button>
 </form>	
+
 <form method="POST" action="$action2" id="formitem">
     <h3>Ajouter/Modifier un item</h3>
     <label>En cas de modification, entrez le numéro de l'item à modifier (l'item doit appartenir à votre liste)<br></label>
@@ -132,6 +157,7 @@ END;
         $lienaccueil = $this->htmlvars['home'];
         $lienaffichage = $this->htmlvars['affichage'];
         $liencreation = $this->htmlvars['creation'];
+        $liencompte = $this->htmlvars['compte'];
         switch ($this->selecteur) {
             case self::FORM_LIST: {
                 $content = $this->formListes();
@@ -161,7 +187,7 @@ END;
             <ul>
                 <li class="boutonaccueil"><a href=$lienaccueil >Accueil</a></li>
                 <li class="boutoncreation"><a href="$liencreation">Créations</a> </li>
-                <li class=""><a href="#">Connexion</a></li>
+                <li class=""><a href=$liencompte>Espace personnel</a></li>
                 <li class="boutonaff"><a href=$lienaffichage>Affichage</a></li>
             </ul>
         </nav>
