@@ -48,6 +48,7 @@ END;
         $l = $this->data[0];
         $action = $this->container->router->pathFor('modifliste');
         $action2 = $this->container->router->pathFor('modifitem');
+        $action3 = $this->container->router->pathFor('modifimage');
         if(!is_null($l->token))
         {
             $lienconsultation = $this->container->router->pathFor('affichageliste', ['id'=>$l->token]);
@@ -108,6 +109,13 @@ END;
     <label>Tarif:<br> <input type="number" name="tarifitem"/></label><br>
     <label>Image:<br> <input type="text" name="urlimgitem"/></label><br> 
     <button type="submit">Enregistrer item</button>
+</form>
+<form method="POST" action="$action3">
+    <h3>Modifier/Supprimer une image d'un item</h3>
+    <label>Identifiant item:<br> <input type="number" name="iditem"/></label><br>
+    <label>Image:<br> <input type="text" name="imgitem"/></label><br>
+    <label>Url site:<br> <input type="text" name="urlitem"/></label><br> 
+    <button type="submit">Modifier une image</button>
 </form>
 $participant
 

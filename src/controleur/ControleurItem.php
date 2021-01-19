@@ -93,4 +93,33 @@ class ControleurItem
         $urlredirection = $this->c->router->pathFor('afficheritem', ['id'=> $iditem]);
         return $response->withRedirect($urlredirection);
     }
+
+    public function modifierImage(Request $req, Response $response, $args)
+    {
+        filter_input(INPUT_POST, 'iditem', FILTER_SANITIZE_NUMBER_INT);
+        $id = $_POST["iditem"];
+        filter_input(INPUT_POST, 'imgitem', FILTER_SANITIZE_STRING);
+        $imgitem = $_POST["imgitem"];
+        filter_input(INPUT_POST, 'urlitem', FILTER_SANITIZE_STRING);
+        $urlitem = $_POST["urlitem"];
+
+        $item = Item::find($id);
+        if (is_null($item))
+        {
+            $item = new Item();
+            $item->id = $id;
+            $item->img = $imgitem;
+            $item->url = $urlitem;
+        }else
+        {
+            if ($item->id = $id)
+            {
+                $item->img = $imgitem;
+                $item->url = $urlitem;
+            }
+        }
+        $item->save();
+        $urlredirection = $this->c->router->pathFor('afficheritem', ['id'=> $id]);
+        return $response->withRedirect($urlredirection);
+    }
 }
