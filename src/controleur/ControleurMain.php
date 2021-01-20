@@ -10,6 +10,11 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use mywishlist\models\Liste;
 
+/**
+ * Pour l'affichage public
+ * Class ControleurMain
+ * @package mywishlist\controleur
+ */
 class ControleurMain
 {
     private Container $c;
@@ -25,6 +30,13 @@ class ControleurMain
         ];
     }
 
+    /**
+     * Méthode gérant l'affichage des listes publiques
+     * @param Request $rq
+     * @param Response $rs
+     * @param array $args
+     * @return Response
+     */
     function getHomeAffichage(Request $rq, Response $rs, array $args): Response {
         $listes = Liste::where('public','=', 1)
             ->where('token', '!=', 'NULL')

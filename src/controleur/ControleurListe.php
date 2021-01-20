@@ -24,6 +24,13 @@ class ControleurListe
         ];
     }
 
+    /**
+     * Méthode qui retourne l'affichage d'une liste selon l'id participant ou création passé en argument
+     * @param Request $rq
+     * @param Response $rs
+     * @param array $args
+     * @return Response
+     */
     function getListe(Request $rq, Response $rs, array $args ):Response {
         $tokenliste = $args['id'];
         $liste = Liste::where('token','=', $tokenliste)->first();
@@ -40,6 +47,13 @@ class ControleurListe
         return $rs;
     }
 
+    /**
+     * Méthode retournant le formulaire de création d'une liste
+     * @param Request $rq
+     * @param Response $response
+     * @param $args
+     * @return Response
+     */
     public function formulaireListe(Request $rq, Response $response, $args):Response {
         if(!is_null($args['err'], $this->c)) {
             $vue = new VueCreateur([$args['err']], $this->c);
@@ -53,6 +67,13 @@ class ControleurListe
         return $response;
     }
 
+    /**
+     * Méthode traitant le formulaire d'une nouvelle liste
+     * @param Request $rq
+     * @param Response $response
+     * @param $args
+     * @return Response
+     */
     public function nouvelleListe(Request $rq, Response $response, $args):Response {
         $post = $rq->getParsedBody();
         $titre = filter_var($post['titre']       , FILTER_SANITIZE_STRING) ;
@@ -107,6 +128,13 @@ class ControleurListe
         return $response->withRedirect($urlredirection);
     }
 
+    /**
+     * Méthode traitant la validation d'une liste après appui sur le bouton valider
+     * @param Request $rq
+     * @param Response $response
+     * @param $args
+     * @return Response
+     */
     public function validerListe(Request  $rq, Response $response, $args): Response {
         $post = $rq->getParsedBody();
         $idliste = $post['id'];

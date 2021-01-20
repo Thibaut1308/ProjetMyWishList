@@ -1,7 +1,6 @@
 <?php
 
 namespace mywishlist\vue;
-use mywishlist\models\Item;
 
 class VueParticipant
 {
@@ -73,10 +72,7 @@ END;
         return $retour;
     }
 
-    public function htmlFooter() {
-        $retour = file_get_contents(__DIR__.'/../../web/html/footer.html');
-        return $retour;
-    }
+
 
     /**
      * Affiche l'accueil
@@ -94,6 +90,10 @@ END;
 
     }
 
+    /**
+     * Méthode retournant la vue participant pour une liste avec les items
+     * @return string
+     */
     private function htmlListItem() {
         $l = $this->data[0];
         if(is_null($l))
@@ -134,6 +134,10 @@ END;
 
     }
 
+    /**
+     * Méthode retournant les listes publiques
+     * @return string
+     */
     private function htmlMenu()
     {
         $retour =  <<<END
@@ -204,6 +208,15 @@ END;
 $footer
 END ;
         return $html;
+    }
+
+    /**
+     * Méthode retournant le contenu du fichier footer.html
+     * @return false|string
+     */
+    public function htmlFooter() {
+        $retour = file_get_contents(__DIR__.'/../../web/html/footer.html');
+        return $retour;
     }
 
 

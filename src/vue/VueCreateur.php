@@ -19,6 +19,10 @@ class VueCreateur
         $this->container = $c;
     }
 
+    /**
+     * Retourne le HTML du formulaire de création d'une liste
+     * @return string
+     */
     public function formListes() {
         if(isset($this->data[0]))
         {
@@ -203,7 +207,10 @@ END ;
         return $html;
     }
 
-
+    /**
+     * Méthode retournant le contenu du fichier footer.html
+     * @return false|string
+     */
     public function htmlFooter() {
         $retour = file_get_contents(__DIR__.'/../../web/html/footer.html');
         return $retour;

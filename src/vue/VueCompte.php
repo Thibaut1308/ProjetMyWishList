@@ -7,6 +7,10 @@ namespace mywishlist\vue;
 use Illuminate\Support\Facades\Auth;
 use mywishlist\controleur\Authentification;
 
+/**
+ * Class VueCompte
+ * @package mywishlist\vue
+ */
 class VueCompte
 {
     private $data;
@@ -22,6 +26,10 @@ class VueCompte
         $this->container = $c;
     }
 
+    /**
+     * Retourne le HTML correspondant au fomulaire de connexion et d'inscription
+     * @return string
+     */
     public function formlaireAuthentification()
     {
         $actionconnection = $this->container->router->pathFor('connection');
@@ -51,6 +59,10 @@ END;
         return $retour;
     }
 
+    /**
+     * Retourne le HTML correspondant aux listes de l'utilisateur authentifié
+     * @return string
+     */
     public function listesMembre() {
         $username = $_SESSION['profile']['username'];
         $action = $this->container->router->pathFor('ajouterliste');
@@ -129,6 +141,10 @@ END ;
         return $html;
     }
 
+    /**
+     * Renvoie le contenu du fichier footer.html
+     * @return false|string
+     */
     public function htmlFooter() {
         $retour = file_get_contents(__DIR__.'/../../web/html/footer.html');
         return $retour;

@@ -23,6 +23,13 @@ class ControleurItem
         ];
     }
 
+    /**
+     * Méthode retournant l'affichage d'un item passé en arguments
+     * @param Request $rq
+     * @param Response $rs
+     * @param array $args
+     * @return Response
+     */
     function getItem(Request $rq, Response $rs, array $args ):Response {
         $iditem = $args['id'];
         $item = Item::find($iditem);
@@ -34,6 +41,13 @@ class ControleurItem
         return $rs;
     }
 
+    /**
+     * Méthode retournant l'accueil de l'application
+     * @param Request $rq
+     * @param Response $rs
+     * @param array $args
+     * @return Response
+     */
     function getAccueil(Request $rq, Response $rs, array $args): Response {
         $vue = new VueParticipant([], $this->c);
         $this->htmlvars['basepath'] = $rq->getUri()->getBasePath();
@@ -42,6 +56,13 @@ class ControleurItem
         return $rs;
     }
 
+    /**
+     * Méthode de modification d'un item après validation du formulaire
+     * @param Request $rq
+     * @param Response $response
+     * @param $args
+     * @return Response
+     */
     public function modifierItem(Request  $rq, Response  $response, $args): Response {
         $post = $rq->getParsedBody();
         $idliste = filter_var($post['id'], FILTER_SANITIZE_NUMBER_INT);
@@ -81,6 +102,13 @@ class ControleurItem
         return $response->withRedirect($urlredirection);
     }
 
+    /**
+     * Méthode de réservation d'un item après validation du formulaire
+     * @param Request $rq
+     * @param Response $response
+     * @param $args
+     * @return Response
+     */
     public function reserverItem(Request  $rq, Response  $response, $args): Response{
         $post = $rq->getParsedBody();
         $iditem = filter_var($post['id'], FILTER_SANITIZE_NUMBER_INT);
@@ -95,6 +123,13 @@ class ControleurItem
         return $response->withRedirect($urlredirection);
     }
 
+    /**
+     * Méthode de modification d'une image après validation du formulaire
+     * @param Request $req
+     * @param Response $response
+     * @param $args
+     * @return mixed
+     */
     public function modifierImage(Request $req, Response $response, $args)
     {
         filter_input(INPUT_POST, 'iditem', FILTER_SANITIZE_NUMBER_INT);
@@ -124,8 +159,14 @@ class ControleurItem
         return $response->withRedirect($urlredirection);
     }
 
+    /**
+     * Méthode de suppression d'un item après validation du formulaire.
+     * @param Request $rq
+     * @param Response $response
+     * @param array $args
+     * @return Response
+     */
     public function supprimerItem(Request  $rq, Response $response,array $args): Response {
-
         $post = $rq->getParsedBody();
         $iditem = filter_var($args['id'], FILTER_SANITIZE_NUMBER_INT);
         $item = Item::find($iditem);

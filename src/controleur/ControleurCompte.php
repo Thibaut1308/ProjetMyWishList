@@ -32,7 +32,13 @@ class ControleurCompte
     }
 
 
-
+    /**
+     * Controleur gérant l'espace personnel
+     * @param Request $rq
+     * @param Response $response
+     * @param $args
+     * @return Response
+     */
     public function formulaireAuthentification(Request $rq, Response $response, $args): Response
     {
 
@@ -51,6 +57,13 @@ class ControleurCompte
         return $response;
     }
 
+    /**
+     * Méthode de traitement de la demande de connexion après envoie du formulaire correspondant
+     * @param Request $req
+     * @param Response $response
+     * @param $args
+     * @return mixed
+     */
     public function traiterConnection(Request $req, Response $response, $args)
     {
         $post = $req->getParsedBody();
@@ -62,6 +75,13 @@ class ControleurCompte
 
     }
 
+    /**
+     * Méthode de traitement de la demande de l'inscription après envoie du formulaire correspondant
+     * @param Request $req
+     * @param Response $response
+     * @param $args
+     * @return mixed
+     */
     public function traiterInscription(Request $req, Response $response, $args)
     {
         $post = $req->getParsedBody();
@@ -74,6 +94,13 @@ class ControleurCompte
 
     }
 
+    /**
+     * Méthode d'ajout d'une liste à l'espace personnel après envoie du token de modification
+     * @param Request $req
+     * @param Response $response
+     * @param $args
+     * @return mixed
+     */
     public function ajouterListeCompte(Request $req, Response $response, $args)
     {
         $post = $req->getParsedBody();
