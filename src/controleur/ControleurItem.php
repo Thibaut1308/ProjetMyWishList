@@ -123,4 +123,19 @@ class ControleurItem
         $urlredirection = $this->c->router->pathFor('afficheritem', ['id'=> $id]);
         return $response->withRedirect($urlredirection);
     }
+
+    public function supprimerItem(Request  $rq, Response $response,array $args): Response {
+
+        $post = $rq->getParsedBody();
+        $iditem = filter_var($args['id'], FILTER_SANITIZE_NUMBER_INT);
+        $item = Item::find($iditem);
+        $l = Liste::find($item->liste_id);
+        $item->delete();
+        $urlredirection = $this->c->router->pathFor('affichageliste', ['id'=> $l->tokenmodif]);
+        return $response->withRedirect($urlredirection);
+
+    }
+
+
+
 }

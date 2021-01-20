@@ -49,6 +49,8 @@ END;
         $action = $this->container->router->pathFor('modifliste');
         $action2 = $this->container->router->pathFor('modifitem');
         $action3 = $this->container->router->pathFor('modifimage');
+        $action4 = $this->container->router->pathFor('suppItem');
+
         if(!isset($_COOKIE['createur'])) {
             if($l->expiration > date('Y-m-j')) {
                 setcookie('createur'.$l->no, serialize($l->no), time()+3600*24*30*12);
@@ -93,14 +95,15 @@ END;
         {
             if(isset($_COOKIE['createur'.$l->no])) {
                 if(is_null($val->reservation)) {
-                    $reserver = "Non réservé";
+                    $reserver = "Non réservé ";
+
                 }else{
                     $reserver = "Réservé";
                 }
             }else
             {
                 if(is_null($val->reservation)) {
-                    $reserver = "Non réservé";
+                    $reserver = "Non réservé <form method='GET' action = $action4 ><input type='hidden' name='id' value='$val->id' /><button type='submit'>Supprimer item</button></form>";
                 }else{
                     $reserver = 'Réservé par '.$val->reservation.' Message: '.$val->message;
                 }

@@ -156,4 +156,14 @@ $app->post('/ajouterlistecompte',
 
 )->setName('ajouterliste');
 
+$app->get('/supprimerItem}',
+    function (Request $request, Response $response,$args): Response{
+        $control = new \mywishlist\controleur\ControleurItem($this);
+        $response = $control->supprimerItem($request,$response,$args);
+        return $response;
+    }
+)->setName('suppItem');
+
+
+
 $app->run();
