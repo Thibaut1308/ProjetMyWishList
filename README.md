@@ -2,6 +2,13 @@
 
 <h1>Informations d'installation et récapitulatif des tâches faites:</h1>
 
+
+<h2>Lien utiles:</h2>
+
+<a href="https://webetu.iutnc.univ-lorraine.fr/www/wojciak2u/ProjetMyWishListWebEtu/">Lien WebEtu</a>
+<a href="https://github.com/Thibaut1308/ProjetMyWishList">Lien Github</a>
+
+
 <h2>Consignes d'installation:</h2>
 
 <ul>
