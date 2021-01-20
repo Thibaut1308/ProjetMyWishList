@@ -30,7 +30,7 @@ $app->get('/',
   }
 )->setName('home');
 
-$app->get( '/affichage',
+$app->get( '/participant/affichage',
     function (Request $req, Response $res, $args): Response {
         $controleur = new \mywishlist\controleur\ControleurMain($this);
         $res = $controleur->getHomeAffichage($req, $res, $args);
@@ -39,7 +39,7 @@ $app->get( '/affichage',
 )->setName('affichage');
 
 
-$app->get('/liste/{id}',
+$app->get('/participant/liste/{id}',
     function (Request $req, Response $response, $args): Response {
         $control = new mywishlist\controleur\ControleurListe($this);
         $response = $control->getListe($req, $response, $args);
@@ -48,7 +48,7 @@ $app->get('/liste/{id}',
 )->setName('affichageliste');
 
 
-$app->get('/creation',
+$app->get('/createur/creation',
     function(Request  $req, Response $response, $args): Response {
         $control = new \mywishlist\controleur\ControleurListe($this);
         $response = $control->formulaireListe($req, $response, $args);
@@ -56,7 +56,7 @@ $app->get('/creation',
     }
 )->setName('form');
 
-$app->get('/creation/{err}',
+$app->get('/createur/creation/{err}',
     function(Request  $req, Response $response, $args): Response {
         $control = new \mywishlist\controleur\ControleurListe($this);
         $response = $control->formulaireListe($req, $response, $args);
@@ -64,7 +64,7 @@ $app->get('/creation/{err}',
     }
 )->setName('formerr');
 
-$app->post('/creation',
+$app->post('/createur/creation',
     function(Request  $req, Response $response, $args): Response {
         $control = new \mywishlist\controleur\ControleurListe($this);
         $response = $control->nouvelleListe($req, $response, $args);
@@ -74,7 +74,7 @@ $app->post('/creation',
 
 
 
-$app->post('/modification',
+$app->post('/createur/modification',
     function(Request $req, Response $response, $args): Response {
         $control = new \mywishlist\controleur\ControleurListe($this);
         $response = $control->modifierListe($req, $response, $args);
@@ -82,7 +82,7 @@ $app->post('/modification',
     }
 )->setName('modifliste');
 
-$app->post('/modification_item',
+$app->post('/createur/modification_item',
     function (Request $req, Response $response, $args): Response {
         $control = new \mywishlist\controleur\ControleurItem($this);
         $response = $control->modifierItem($req, $response, $args);
@@ -90,7 +90,7 @@ $app->post('/modification_item',
     }
 )->setName('modifitem');
 
-$app->post('/valider',
+$app->post('/createur/valider',
     function(Request $req, Response $response, $args): Response {
         $control = new \mywishlist\controleur\ControleurListe($this);
         $response = $control->validerListe($req, $response, $args);
@@ -99,7 +99,7 @@ $app->post('/valider',
 )->setName('validerliste');
 
 
-$app->get('/item/{id}',
+$app->get('/participant/item/{id}',
     function (Request $req, Response $response, $args): Response {
         $controleuritem = new \mywishlist\controleur\ControleurItem($this);
         $response = $controleuritem->getItem($req, $response, $args);
@@ -107,7 +107,7 @@ $app->get('/item/{id}',
     }
 )->setName('afficheritem');
 
-$app->post('/reserver',
+$app->post('/participant/reserver',
     function(Request $req, Response $response, $args): Response {
         $controleuritem = new \mywishlist\controleur\ControleurItem($this);
         $response = $controleuritem->reserverItem($req, $response, $args);
@@ -115,7 +115,7 @@ $app->post('/reserver',
     }
 )->setName('reserver');
 
-$app->post('/modifimage',
+$app->post('/createur/modifimage',
     function(Request $req, Response $response, $args): Response {
         $controleuritem = new \mywishlist\controleur\ControleurItem($this);
         $response = $controleuritem->modifierImage($req, $response, $args);
@@ -123,7 +123,7 @@ $app->post('/modifimage',
     }
 )->setName('modifimage');
 
-$app->get('/authentification',
+$app->get('/createur/authentification',
     function (Request $req, Response $response, $args): Response {
         $controleurcompte = new \mywishlist\controleur\ControleurCompte($this);
         $response = $controleurcompte->formulaireAuthentification($req, $response, $args);
@@ -131,7 +131,7 @@ $app->get('/authentification',
     }
 )->setName('compte');
 
-$app->post('/formconnection',
+$app->post('/createur/formconnection',
     function(Request $req, Response $response, $args): Response {
         $controleurcompte = new \mywishlist\controleur\ControleurCompte($this);
         $response = $controleurcompte->traiterConnection($req, $response, $args);
@@ -139,7 +139,7 @@ $app->post('/formconnection',
     }
 )->setName('connection');
 
-$app->post('/forminscription',
+$app->post('/createur/forminscription',
     function (Request $req, Response $response, $args): Response {
         $controleurcompte = new \mywishlist\controleur\ControleurCompte($this);
         $response = $controleurcompte->traiterInscription($req, $response, $args);
@@ -147,7 +147,7 @@ $app->post('/forminscription',
     }
 )->setName('inscription');
 
-$app->post('/ajouterlistecompte',
+$app->post('/createur/ajouterlistecompte',
     function(Request $req, Response $response, $args): Response {
         $controleurcompte = new \mywishlist\controleur\ControleurCompte($this);
         $response = $controleurcompte->ajouterListeCompte($req, $response, $args);
@@ -156,7 +156,7 @@ $app->post('/ajouterlistecompte',
 
 )->setName('ajouterliste');
 
-$app->get('/supprimerItem}',
+$app->get('/createur/supprimerItem}',
     function (Request $request, Response $response,$args): Response{
         $control = new \mywishlist\controleur\ControleurItem($this);
         $response = $control->supprimerItem($request,$response,$args);
